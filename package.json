@@ -8,6 +8,7 @@
     "react-scripts": "1.1.4"
   },
   "scripts": {
+    "docker:shell": "docker run -it -v `pwd`:/var/app -w /var/app node:8-alpine sh",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
