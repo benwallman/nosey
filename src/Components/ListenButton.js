@@ -5,7 +5,8 @@ import Button from '@material-ui/core/Button';
 const ListenButton = ({ onClick }) => (
   <Button
     onClick={onClick}
-    color="secondary"
+    color="primary"
+    variant="contained"
   >
     Listen now
   </Button>
