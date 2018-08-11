@@ -30,7 +30,10 @@ class Home extends Component {
           open={this.displayModal()}
           onClose={() => { this.setActiveModal() }}
         >
-            <h1>{this.state.activeModal}</h1>
+          <div>
+            {this.state.activeModal}
+            <Listen />
+          </div>
         </Modal>
         <ListenButton
           onClick={() => this.setActiveModal('Listen')}
