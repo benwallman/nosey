@@ -8,12 +8,37 @@ it('renders without crashing', () => {
   expect(wrapper).toHaveLength(1);
 });
 
-it('should render the Welcome page', () => {
-  const wrapper = shallow(<App />);
-  expect(wrapper.find('Welcome')).toHaveLength(1)
+describe('Home page', () => {
+  beforeEach(() => {
+    Object.defineProperty(global.location, 'href', {
+      writable: true,
+      value: 'https://www.somthing.com/home'
+    });
+  });
+  it('should render if the url contains home', ()=> {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find('Home')).toHaveLength(1);
+    expect(wrapper.find('Welcome')).toHaveLength(0);
+  });
 });
 
-it('should render the home page', ()=> {
-  const wrapper = shallow(<App />);
-  expect(wrapper.find('Home')).toHaveLength(1)
+describe('Welcome page', () => {
+  beforeEach(() => {
+    Object.defineProperty(global.location, 'href', {
+      writable: true,
+      value: 'https://www.somthing.com/welcome'
+    });
+  });
+  it('should render if the url contains welcome', ()=> {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find('Welcome')).toHaveLength(1);
+    expect(wrapper.find('Home')).toHaveLength(0);
+  });
+});
+
+afterEach(() => {
+  Object.defineProperty(global.location, 'href', {
+    writable: true,
+    value: 'https://www.somthing.com/'
+  });
 });

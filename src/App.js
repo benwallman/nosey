@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
@@ -7,14 +7,43 @@ import Welcome from './Pages/Welcome';
 import theme from './theme';
 import './App.css';
 
-const App = () => (
-  <MuiThemeProvider theme={theme}>
-    <CssBaseline />
-    <div className="App">
-      <Welcome />
-      <Home />
-    </div>
-  </MuiThemeProvider>
-);
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayWelcome: false,
+      displayHome: false,
+    };
+  }
+  checkUrl = () => {
+    if(window.location.href.includes('welcome')) {
+      this.setState({
+        displayWelcome: true,
+      })
+    }
+    if(window.location.href.includes('home')) {
+      this.setState({
+        displayHome: true,
+      })
+    }
+  };
+  componentDidMount() {
+    this.checkUrl();
+    window.addEventListener('popstate', () => {
+      this.checkUrl();
+    });
+  }
+  render() {
+    return (
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className="App">
+          { this.state.displayWelcome ? <Welcome /> : null }
+          { this.state.displayHome ? <Home /> : null }
+        </div>
+      </MuiThemeProvider>
+    )
+  }
+}
 
 export default App;
